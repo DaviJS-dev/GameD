@@ -2,7 +2,7 @@
 **May 2022**
 
 
-# Phaser 3 + TypeScript + Parcel Template
+# Phaser 3 + TypeScript + Game
 
 
 ![License](https://img.shields.io/badge/license-MIT-green)
