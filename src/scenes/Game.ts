@@ -103,14 +103,23 @@ export default class Game extends Phaser.Scene {
       }
     } else {
       this.menina.setVelocityX(0);
-      this.menina.play("menina-static", true);
+      if (this.isTouchingGround) {
+        this.menina.play("menina-static", true);
+      }
     }
 
     const spaceJustPressed = Phaser.Input.Keyboard.JustDown(this.cursors.space);
     if (spaceJustPressed && this.isTouchingGround) {
-      this.menina.setVelocityY(-5);
+      let jumpVelocity = -5;
+      this.menina.play("menina-jump", true);  
+      if (this.shiftKey.isDown ) {
+        jumpVelocity = -8; // Aumentar a altura do pulo quando correndo
+      }
+      this.menina.setVelocityY(jumpVelocity);
       this.isTouchingGround = false;
+      
     }
+
 
     if (this.shiftKey.isDown) {
       if (this.cursors.left.isDown) {
@@ -156,6 +165,18 @@ export default class Game extends Phaser.Scene {
         suffix: ".png",
       }),
       repeat: -1,
+    });
+
+    this.anims.create({
+      key: "menina-jump",
+      frameRate: 14 ,
+      frames: this.anims.generateFrameNames("menina", {
+        start: 89,
+        end: 98,
+        prefix: "menina_jump",
+        suffix: ".png",
+      }),
+      repeat: 0,
     });
   }
 }
